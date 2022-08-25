@@ -3,6 +3,7 @@ import Image from "next/image";
 import styles from "../styles/Home.module.css";
 import { Button, Form, Input, Radio } from "antd";
 import Prompt from "../components/Prompt";
+import SubmitWriting from "../components/submitWriting";
 
 export default function Home() {
   return (
@@ -28,8 +29,6 @@ export default function Home() {
 
           <button>submit code</button>
         </div>
-
-        <Prompt />
       </main>
     </div>
   );
