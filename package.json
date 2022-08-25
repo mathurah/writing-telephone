@@ -12,8 +12,10 @@
     "@emotion/react": "^11.10.0",
     "@emotion/styled": "^11.10.0",
     "@mui/material": "^5.10.2",
+    "@supabase/supabase-js": "^2.0.0-rc.6",
     "antd": "^4.22.7",
     "next": "12.2.5",
+    "openai": "^3.0.0",
     "react": "18.2.0",
     "react-dom": "18.2.0"
   },
