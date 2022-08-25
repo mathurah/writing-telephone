@@ -4,6 +4,9 @@ import styles from "../styles/Home.module.css";
 import { Button, Form, Input, Radio } from "antd";
 import Prompt from "../components/Prompt";
 import SubmitWriting from "../components/submitWriting";
+import { useState } from "react";
+
+import { withRouter } from "next/router";
 
 export default function Home() {
   return (
@@ -17,7 +20,14 @@ export default function Home() {
       <main className={styles.main}>
         <h1 className={styles.title}>write a story with frens</h1>
 
-        <button className={styles.bigButton}>start a story</button>
+        <button onClick={generatePrompt} className={styles.bigButton}>
+          start a story
+        </button>
+        {loading && (
+          <>
+            <p>loading</p>
+          </>
+        )}
         <p className={styles.description}>
           or... if you have a game code, enter it here
         </p>
