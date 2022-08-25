@@ -1,4 +1,3 @@
-import Head from "next/head";
 import styles from "../styles/Prompt.module.css";
 
 export default function Prompt() {

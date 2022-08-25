@@ -1,3 +1,14 @@
 .mainContainer {
     padding-top: 4rem; 
 }
+
+.storyID {
+    color: grey; 
+    font-size: 24px; 
+    text-align: center;
+}
+
+.instructionText {
+    font-size: 32px; 
+    letter-spacing: .04rem;
+}
