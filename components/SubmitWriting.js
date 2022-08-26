@@ -1,6 +1,6 @@
 import styles from "../styles/SubmitWriting.module.css";
 import React, { useState, useContext } from "react";
-import { insertPost } from "../db/supabase";
+import { getPosts, insertPost } from "../db/supabase";
 
 export default function SubmitWriting(story_id) {
   const [author, setAuthor] = useState("");
@@ -15,14 +15,13 @@ export default function SubmitWriting(story_id) {
     console.log("this is the post", post);
     const response = await insertPost(post);
     console.log("this is the response", response);
+    getPosts(story_id);
+
     return response;
 
     // console.log(author, content);
   };
 
-  const addStory = (author, content) => {
-    console.log(author, content);
-  };
   return (
     <div className={styles.mainContainer}>
       <form onSubmit={handleSubmit}>

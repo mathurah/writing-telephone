@@ -8,7 +8,7 @@ import Writing from "./Writing";
 import { getPosts } from "../db/supabase";
 import { useState, useEffect } from "react";
 export default function WriteStory({ loading, prompt, story_id }) {
-  const [posts, setPosts] = useState([]);
+  const [posts, setPosts] = useState(undefined);
   console.log("STORYIDWRITESTOYR", story_id);
 
   const getPostsByID = async (storyID) => {
@@ -21,7 +21,7 @@ export default function WriteStory({ loading, prompt, story_id }) {
     if (story_id != "") {
       getPostsByID({ story_id });
     }
-  }, [posts]);
+  }, [story_id, posts]);
 
   return (
     <div className={styles.container}>
@@ -38,16 +38,21 @@ export default function WriteStory({ loading, prompt, story_id }) {
       {/* TODO: Make a way to access a list of generated prompts */}
       <Prompt prompt={prompt}></Prompt>
       {/* TODO: Loop through map of submitted stories */}
-      {posts.map((post) => (
-        <Writing
-          {...post}
-          key={post.id}
-          id={post.id}
-          story_id={story_id}
-          content={post.content}
-          author={post.author}
-        />
-      ))}
+      {posts === undefined ? (
+        <p>loading...</p>
+      ) : (
+        posts.map((post) => (
+          <Writing
+            {...post}
+            key={post.id}
+            id={post.id}
+            story_id={story_id}
+            content={post.content}
+            author={post.author}
+          />
+        ))
+      )}
+
       {/* TODO: Add a way to submit a story */}
       <p className={styles.instructionText}>now it's your turn:</p>
       {/* <button onClick={generateOpen}>HII</button> */}
