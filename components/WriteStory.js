@@ -57,7 +57,7 @@ export default function WriteStory({ loading, story_id }) {
       )}
 
       {/* TODO: Add a way to submit a story */}
-      <p className={styles.instructionText}>now it's your turn:</p>
+      <p className={styles.instructionText}>your turn:</p>
       {/* <button onClick={generateOpen}>HII</button> */}
       <WritingForm story_id={story_id} setPosts={setPosts} />
     </div>
