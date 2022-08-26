@@ -15,6 +15,8 @@ export default function Home() {
   const [promptGenerated, setPromptGenerated] = useState(false);
   const [prompt, setPrompt] = useState("");
   const [loading, setLoading] = useState(false);
+  const [story, setStory] = useState("");
+  const [story_id, setStory_id] = useState("");
 
   const promptIdeas = [
     "When the world ended, the few survivors left were not the strongest or the smartest. They were simply the luckiest. For the first time in their lives, they had to learn to fend for themselves and build a new society from the ground up",
@@ -22,12 +24,14 @@ export default function Home() {
     "Write a story in which a small community is beset by a curse that makes everyone become animals overnight. They must figure out how to break the curse before it's too late.",
   ];
 
-  const generatePrompt2 = () => {
+  const generatePrompt2 = async () => {
     const chosenPrompt =
       promptIdeas[Math.floor(Math.random() * promptIdeas.length)];
     setPrompt(chosenPrompt);
     setLoading(true);
-    createStory(chosenPrompt);
+    story = await createStory(chosenPrompt);
+    setStory_id(story.id);
+
     // console.log(prompt);
   };
   const generatePrompt = async () => {
@@ -68,7 +72,9 @@ export default function Home() {
       </Head>
 
       {!loading && <MainPage generatePrompt2={generatePrompt2} />}
-      {loading && <WriteStory loading={loading} prompt={prompt} />}
+      {loading && (
+        <WriteStory story_id={story_id} loading={loading} prompt={prompt} />
+      )}
     </div>
   );
 }

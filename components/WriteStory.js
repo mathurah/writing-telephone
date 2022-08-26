@@ -6,7 +6,7 @@ import Prompt from "./Prompt";
 import SubmitWriting from "./submitWriting";
 import Writing from "./Writing";
 import { getPosts } from "../db/supabase";
-export default function WriteStory({ loading, prompt }) {
+export default function WriteStory({ loading, prompt, story_id }) {
   // export const getAllPosts = async () => {
   //   const { data: posts, error } = await supabase
   //     .from("post")
@@ -21,6 +21,7 @@ export default function WriteStory({ loading, prompt }) {
   //     ...post,
   //   }));
   // };
+  console.log("this is the id", story_id);
 
   return (
     <div className={styles.container}>
@@ -31,7 +32,7 @@ export default function WriteStory({ loading, prompt }) {
 
       <main className={styles.mainContainer}>
         <h1 className="title">you brave solidier... you started the story.</h1>
-        <p className={styles.storyID}>story id: #0d9cdefeifdsif</p>
+        <p className={styles.storyID}>story id: {story_id}</p>
 
         <p className={styles.instructionText}>Prompt: </p>
       </main>

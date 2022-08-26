@@ -18,7 +18,9 @@ export const createStory = async (prompt) => {
   console.log(prompt);
   const { data, error } = await supabase
     .from("story")
-    .insert([{ prompt: prompt }]);
+    .insert([{ prompt: prompt }])
+    .select();
+  return data[0];
 };
 //need to be able to post id to see the story
 
