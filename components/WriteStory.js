@@ -44,7 +44,7 @@ export default function WriteStory({ loading, prompt, story_id }) {
       {/* TODO: Add a way to submit a story */}
       <p className={styles.instructionText}>now it's your turn:</p>
       {/* <button onClick={generateOpen}>HII</button> */}
-      <SubmitWriting />
+      <SubmitWriting story_id={story_id} />
     </div>
   );
 }
