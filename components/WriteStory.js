@@ -3,25 +3,27 @@ import Image from "next/image";
 import styles from "../styles/writeStory.module.css";
 import { Button, Form, Input, Radio } from "antd";
 import Prompt from "./Prompt";
-import SubmitWriting from "./submitWriting";
+import WritingForm from "./writingForm";
 import Writing from "./Writing";
-import { getPosts } from "../db/supabase";
+import { getPosts, getStory } from "../db/supabase";
 import { useState, useEffect } from "react";
-export default function WriteStory({ loading, prompt, story_id }) {
+export default function WriteStory({ loading, story_id }) {
   const [posts, setPosts] = useState(undefined);
-  console.log("STORYIDWRITESTOYR", story_id);
+  const [story, setStory] = useState();
 
   const getPostsByID = async (storyID) => {
-    console.log("STORY", storyID);
+    console.log(storyID);
     setPosts(await getPosts(storyID));
-    console.log("POSTSS", posts);
+    setStory(((await getStory(storyID)) || [{}])[0] || {});
   };
 
   useEffect(() => {
     if (story_id != "") {
-      getPostsByID({ story_id });
+      getPostsByID(story_id);
     }
-  }, [story_id, posts]);
+  }, [story_id]);
+
+  if (!story) return null;
 
   return (
     <div className={styles.container}>
@@ -36,7 +38,7 @@ export default function WriteStory({ loading, prompt, story_id }) {
         <p className={styles.instructionText}>Prompt: </p>
       </main>
       {/* TODO: Make a way to access a list of generated prompts */}
-      <Prompt prompt={prompt}></Prompt>
+      <Prompt prompt={story.prompt}></Prompt>
       {/* TODO: Loop through map of submitted stories */}
       {/* TODO: can put a cool loading animation here */}
       {posts === undefined ? (
@@ -57,7 +59,7 @@ export default function WriteStory({ loading, prompt, story_id }) {
       {/* TODO: Add a way to submit a story */}
       <p className={styles.instructionText}>now it's your turn:</p>
       {/* <button onClick={generateOpen}>HII</button> */}
-      <SubmitWriting story_id={story_id} />
+      <WritingForm story_id={story_id} setPosts={setPosts} />
     </div>
   );
 }
