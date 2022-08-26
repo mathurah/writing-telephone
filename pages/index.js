@@ -3,7 +3,7 @@ import Image from "next/image";
 import styles from "../styles/Home.module.css";
 import { Button, Form, Input, Radio } from "antd";
 import Prompt from "../components/Prompt";
-import WritingForm from "../components/writingForm";
+import WritingForm from "../components/WritingForm";
 import { useState } from "react";
 import WriteStory from "../components/WriteStory";
 import { createStory } from "../db/supabase";
