@@ -7,7 +7,7 @@ import SubmitWriting from "./submitWriting";
 import Writing from "./Writing";
 import { getPosts } from "../db/supabase";
 import { useState, useEffect } from "react";
-export default function WriteStory({ loading, prompt, story_id }) {
+export default function WriteStory({ setLoading, loading, prompt, story_id }) {
   const [posts, setPosts] = useState(undefined);
   console.log("STORYIDWRITESTOYR", story_id);
 
@@ -57,7 +57,11 @@ export default function WriteStory({ loading, prompt, story_id }) {
       {/* TODO: Add a way to submit a story */}
       <p className={styles.instructionText}>now it's your turn:</p>
       {/* <button onClick={generateOpen}>HII</button> */}
-      <SubmitWriting loading={loading} story_id={story_id} />
+      <SubmitWriting
+        setLoading={setLoading}
+        loading={loading}
+        story_id={story_id}
+      />
     </div>
   );
 }

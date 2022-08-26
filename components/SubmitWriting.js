@@ -2,7 +2,7 @@ import styles from "../styles/SubmitWriting.module.css";
 import React, { useState, useContext } from "react";
 import { getPosts, insertPost } from "../db/supabase";
 
-export default function SubmitWriting(story_id, loading) {
+export default function SubmitWriting(setLoading, story_id, loading) {
   const [author, setAuthor] = useState("");
   const [content, setContent] = useState("");
 
@@ -16,16 +16,17 @@ export default function SubmitWriting(story_id, loading) {
     const response = await insertPost(post);
     console.log("this is the response", response);
     getPosts(story_id);
-
+    setAuthor("");
+    setContent("");
     return response;
 
     // console.log(author, content);
   };
 
-  const handleExit = ({ e, loading }) => {
-    e.preventDefault();
-    setLoading(false);
-  };
+  // const handleExit = ({ e, setLoading }) => {
+  //   e.preventDefault();
+  //   setLoading(false);
+  // };
 
   return (
     <div className={styles.mainContainer}>
@@ -48,16 +49,12 @@ export default function SubmitWriting(story_id, loading) {
 
           <div className={styles.buttonContainer}>
             <button
-              onClick={(e) => handleExit({ e, loading })}
+              // onClick={(e) => handleExit({ e, loading })}
               className={styles.saveButton}
             >
               Exit
             </button>
-            <button
-              type="submit"
-              className={styles.submitButton}
-              onClick={(e) => handleSubmit({ e, author, content, story_id })}
-            >
+            <button type="submit" className={styles.submitButton}>
               submit
             </button>
           </div>
