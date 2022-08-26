@@ -14,8 +14,12 @@ export const getPosts = async () => {
 // Generate prompt
 
 //generate prompt & story_id, add these to the database
-
-export const generatePrompt = () => {};
+export const createStory = async (prompt) => {
+  console.log(prompt);
+  const { data, error } = await supabase
+    .from("story")
+    .insert([{ prompt: prompt }]);
+};
 //need to be able to post id to see the story
 
 //story is active/completed?

@@ -6,6 +6,7 @@ import Prompt from "../components/Prompt";
 import SubmitWriting from "../components/submitWriting";
 import { useState } from "react";
 import WriteStory from "../components/WriteStory";
+import { createStory } from "../db/supabase";
 
 import { withRouter } from "next/router";
 import MainPage from "../components/MainPage";
@@ -22,10 +23,11 @@ export default function Home() {
   ];
 
   const generatePrompt2 = () => {
-    setPrompt(promptIdeas[Math.floor(Math.random() * promptIdeas.length)]);
-
-    // setPrompt(chosenPrompt);
+    const chosenPrompt =
+      promptIdeas[Math.floor(Math.random() * promptIdeas.length)];
+    setPrompt(chosenPrompt);
     setLoading(true);
+    createStory(chosenPrompt);
     // console.log(prompt);
   };
   const generatePrompt = async () => {
