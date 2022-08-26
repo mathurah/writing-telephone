@@ -1,13 +1,23 @@
 import styles from "../styles/SubmitWriting.module.css";
 import React, { useState, useContext } from "react";
+import { insertPost } from "../db/supabase";
 
-export default function SubmitWriting() {
+export default function SubmitWriting(story_id) {
   const [author, setAuthor] = useState("");
   const [content, setContent] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async ({ e, author, content }) => {
     e.preventDefault(); //prevents page from being refreshed
-    console.log(author, content);
+    let post = new Object();
+    post.content = content;
+    post.author = author;
+    post.story_id = story_id;
+    console.log("this is the post", post);
+    const response = await insertPost(post);
+    console.log("this is the response", response);
+    return response;
+
+    // console.log(author, content);
   };
 
   const addStory = (author, content) => {
@@ -36,7 +46,7 @@ export default function SubmitWriting() {
             <button
               type="submit"
               className={styles.submitButton}
-              onClick={handleSubmit}
+              onClick={(e) => handleSubmit({ e, author, content, story_id })}
             >
               submit
             </button>
