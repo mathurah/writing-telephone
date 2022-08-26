@@ -6,7 +6,10 @@ import Prompt from "./Prompt";
 import SubmitWriting from "./submitWriting";
 import Writing from "./Writing";
 import { getPosts } from "../db/supabase";
+import { useState, useEffect } from "react";
 export default function WriteStory({ loading, prompt, story_id }) {
+  const [posts, setPosts] = useState(undefined);
+  console.log("STORYIDWRITESTOYR", story_id);
   // export const getAllPosts = async () => {
   //   const { data: posts, error } = await supabase
   //     .from("post")
@@ -21,7 +24,14 @@ export default function WriteStory({ loading, prompt, story_id }) {
   //     ...post,
   //   }));
   // };
-  console.log("this is the id", story_id);
+
+  // const getPostsByID = async ({story_id}) => {
+  //   setPosts(await getPosts(story_id));
+  // };
+
+  useEffect(() => {
+    getPosts(story_id);
+  }, []);
 
   return (
     <div className={styles.container}>
