@@ -35,6 +35,7 @@ export default function SubmitWriting(story_id) {
         </div>
         <div>
           <textarea
+            minLength="252"
             value={content}
             onChange={(e) => setContent(e.target.value)}
             className={styles.writingContainer}
