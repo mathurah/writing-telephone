@@ -5,8 +5,16 @@ export const getPosts = async (story_id) => {
   const { data, error } = await supabase
     .from("post")
     .select()
-    .eq("story_id", story_id.story_id);
+    .eq("story_id", story_id);
   console.log("these are the posts", data, error);
+  return data;
+};
+
+export const getStory = async (story_id) => {
+  const { data, error } = await supabase
+    .from("story")
+    .select()
+    .eq("id", story_id);
   return data;
 };
 
@@ -20,7 +28,7 @@ export const insertPost = async (post) => {
       {
         content: post.content,
         author: post.author,
-        story_id: post.story_id.story_id,
+        story_id: post.story_id,
       },
     ])
     .select();

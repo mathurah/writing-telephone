@@ -1,8 +1,8 @@
-import styles from "../styles/SubmitWriting.module.css";
+import styles from "../styles/WritingForm.module.css";
 import React, { useState, useContext } from "react";
 import { getPosts, insertPost } from "../db/supabase";
 
-export default function SubmitWriting(story_id) {
+export default function WritingForm({ story_id, setPosts }) {
   const [author, setAuthor] = useState("");
   const [content, setContent] = useState("");
 
@@ -15,7 +15,8 @@ export default function SubmitWriting(story_id) {
     console.log("this is the post", post);
     const response = await insertPost(post);
     console.log("this is the response", response);
-    getPosts(story_id);
+    console.log(story_id);
+    setPosts(await getPosts(story_id));
 
     return response;
 

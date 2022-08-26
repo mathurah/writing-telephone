@@ -3,11 +3,11 @@ import Image from "next/image";
 import styles from "../styles/Home.module.css";
 import { Button, Form, Input, Radio } from "antd";
 import Prompt from "../components/Prompt";
-import SubmitWriting from "../components/submitWriting";
+import WritingForm from "../components/writingForm";
 import { useState } from "react";
 import WriteStory from "../components/WriteStory";
 import { createStory } from "../db/supabase";
-
+import { useRouter } from "next/router";
 import { withRouter } from "next/router";
 import MainPage from "../components/MainPage";
 
@@ -17,6 +17,7 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
   const [story, setStory] = useState("");
   const [story_id, setStory_id] = useState("");
+  const router = useRouter();
 
   const generatePrompt2 = async () => {
     const chosenPrompt =
@@ -28,6 +29,7 @@ export default function Home() {
 
     // console.log(prompt);
   };
+
   const generatePrompt = async () => {
     const apiKey = process.env.OPENAI_API_KEY;
     setLoading(true);
@@ -55,7 +57,7 @@ export default function Home() {
     setPromptGenerated(true);
     story = await createStory(generatedPrompt);
     setStory_id(story.id);
-
+    router.push("/" + story.id);
     // console.log("prompt", generatedPrompt);
     // console.log(generatedPrompt);
   };
@@ -67,8 +69,8 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      {!loading && <MainPage generatePrompt2={generatePrompt} />}
-      {loading && (
+      {!loading && <MainPage generatePrompt={generatePrompt} />}
+      {story_id && (
         <WriteStory story_id={story_id} loading={loading} prompt={prompt} />
       )}
     </div>

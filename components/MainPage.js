@@ -1,12 +1,21 @@
 import styles from "../styles/Home.module.css";
+import { useState } from "react";
+import { useRouter } from "next/router";
 
-export default function MainPage({ generatePrompt2 }) {
+export default function MainPage({ generatePrompt }) {
+  const [story_id, setStory_id] = useState("");
+  const router = useRouter();
+
+  const submitCode = (story_id) => {
+    router.push("/" + story_id);
+  };
+
   return (
     <>
       <main className={styles.main}>
         <h1 className={styles.title}>write a story with frens</h1>
 
-        <button onClick={generatePrompt2} className={styles.bigButton}>
+        <button onClick={generatePrompt} className={styles.bigButton}>
           start a story
         </button>
 
@@ -16,10 +25,13 @@ export default function MainPage({ generatePrompt2 }) {
 
         <div className={styles.submitStoryCode}>
           <form>
-            <input className={styles.storyCodeInput}></input>
+            <input
+              onChange={(e) => setStory_id(e.target.value)}
+              className={styles.storyCodeInput}
+            ></input>
           </form>
 
-          <button>submit code</button>
+          <button onClick={() => submitCode(story_id)}>submit code</button>
         </div>
       </main>
     </>
