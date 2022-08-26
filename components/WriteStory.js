@@ -2,11 +2,11 @@ import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/writeStory.module.css";
 import { Button, Form, Input, Radio } from "antd";
-import Prompt from "../components/Prompt";
-import SubmitWriting from "../components/submitWriting";
-import Writing from "../components/Writing";
+import Prompt from "./Prompt";
+import SubmitWriting from "./submitWriting";
+import Writing from "./Writing";
 import { getPosts } from "../db/supabase";
-export default function writeStory() {
+export default function WriteStory({ loading, prompt }) {
   // export const getAllPosts = async () => {
   //   const { data: posts, error } = await supabase
   //     .from("post")
@@ -33,10 +33,10 @@ export default function writeStory() {
         <h1 className="title">you brave solidier... you started the story.</h1>
         <p className={styles.storyID}>story id: #0d9cdefeifdsif</p>
 
-        <p className={styles.instructionText}>prompt</p>
+        <p className={styles.instructionText}>Prompt: </p>
       </main>
       {/* TODO: Make a way to access a list of generated prompts */}
-      <Prompt></Prompt>
+      <Prompt prompt={prompt}></Prompt>
 
       {/* TODO: Loop through map of submitted stories */}
       <Writing />

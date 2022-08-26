@@ -5,10 +5,58 @@ import { Button, Form, Input, Radio } from "antd";
 import Prompt from "../components/Prompt";
 import SubmitWriting from "../components/submitWriting";
 import { useState } from "react";
+import WriteStory from "../components/WriteStory";
 
 import { withRouter } from "next/router";
+import MainPage from "../components/MainPage";
 
 export default function Home() {
+  const [promptGenerated, setPromptGenerated] = useState(false);
+  const [prompt, setPrompt] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const promptIdeas = [
+    "When the world ended, the few survivors left were not the strongest or the smartest. They were simply the luckiest. For the first time in their lives, they had to learn to fend for themselves and build a new society from the ground up",
+    "In a future world where books have been outlawed, a group of teens form a secret book club where they meet to read and discuss their favorite novels.",
+    "Write a story in which a small community is beset by a curse that makes everyone become animals overnight. They must figure out how to break the curse before it's too late.",
+  ];
+
+  const generatePrompt2 = () => {
+    setPrompt(promptIdeas[Math.floor(Math.random() * promptIdeas.length)]);
+
+    // setPrompt(chosenPrompt);
+    setLoading(true);
+    // console.log(prompt);
+  };
+  const generatePrompt = async () => {
+    const apiKey = process.env.OPENAI_API_KEY;
+    setLoading(true);
+    const { Configuration, OpenAIApi } = require("openai");
+    const configuration = new Configuration({
+      apiKey: process.env.NEXT_PUBLIC_OPENAI_API_KEY,
+    });
+
+    // console.log(apiKey);
+    const openai = new OpenAIApi(configuration);
+
+    const response = await openai.createCompletion({
+      model: "text-davinci-002",
+      prompt: "Give me a fiction prompt",
+      temperature: 0.7,
+      max_tokens: 256,
+      top_p: 1,
+      frequency_penalty: 0,
+      presence_penalty: 0,
+    });
+
+    const generatedPrompt = response.data.choices[0].text;
+    setPrompt(generatedPrompt);
+    setLoading(false);
+    setPromptGenerated(true);
+
+    // console.log("prompt", generatedPrompt);
+    // console.log(generatedPrompt);
+  };
   return (
     <div className={styles.container}>
       <Head>
@@ -17,29 +65,8 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className={styles.main}>
-        <h1 className={styles.title}>write a story with frens</h1>
-
-        <button onClick={generatePrompt} className={styles.bigButton}>
-          start a story
-        </button>
-        {loading && (
-          <>
-            <p>loading</p>
-          </>
-        )}
-        <p className={styles.description}>
-          or... if you have a game code, enter it here
-        </p>
-
-        <div className={styles.submitStoryCode}>
-          <form>
-            <input className={styles.storyCodeInput}></input>
-          </form>
-
-          <button>submit code</button>
-        </div>
-      </main>
+      {!loading && <MainPage generatePrompt2={generatePrompt2} />}
+      {loading && <WriteStory loading={loading} prompt={prompt} />}
     </div>
   );
 }

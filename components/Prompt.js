@@ -1,6 +1,6 @@
 import styles from "../styles/Prompt.module.css";
 
-export default function Prompt(prompt) {
+export default function Prompt({ prompt }) {
   return (
     <div className={styles.promptContainer}>
       <div>
