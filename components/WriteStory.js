@@ -30,7 +30,7 @@ export default function WriteStory({ loading, prompt, story_id }) {
   // };
 
   useEffect(() => {
-    getPosts(story_id);
+    getPosts({ story_id });
   }, []);
 
   return (
