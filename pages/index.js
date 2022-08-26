@@ -18,12 +18,6 @@ export default function Home() {
   const [story, setStory] = useState("");
   const [story_id, setStory_id] = useState("");
 
-  const promptIdeas = [
-    "When the world ended, the few survivors left were not the strongest or the smartest. They were simply the luckiest. For the first time in their lives, they had to learn to fend for themselves and build a new society from the ground up",
-    "In a future world where books have been outlawed, a group of teens form a secret book club where they meet to read and discuss their favorite novels.",
-    "Write a story in which a small community is beset by a curse that makes everyone become animals overnight. They must figure out how to break the curse before it's too late.",
-  ];
-
   const generatePrompt2 = async () => {
     const chosenPrompt =
       promptIdeas[Math.floor(Math.random() * promptIdeas.length)];
@@ -57,8 +51,10 @@ export default function Home() {
 
     const generatedPrompt = response.data.choices[0].text;
     setPrompt(generatedPrompt);
-    setLoading(false);
+    setLoading(true);
     setPromptGenerated(true);
+    story = await createStory(generatedPrompt);
+    setStory_id(story.id);
 
     // console.log("prompt", generatedPrompt);
     // console.log(generatedPrompt);
@@ -71,7 +67,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      {!loading && <MainPage generatePrompt2={generatePrompt2} />}
+      {!loading && <MainPage generatePrompt2={generatePrompt} />}
       {loading && (
         <WriteStory story_id={story_id} loading={loading} prompt={prompt} />
       )}

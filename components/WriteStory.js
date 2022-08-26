@@ -30,7 +30,7 @@ export default function WriteStory({ loading, prompt, story_id }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.mainContainer}>
-        <h1 className="title">you brave solidier... you started the story.</h1>
+        <h1 className="title">you brave soldier... you started the story.</h1>
         <p className={styles.storyID}>story id: {story_id}</p>
 
         <p className={styles.instructionText}>Prompt: </p>
@@ -38,6 +38,7 @@ export default function WriteStory({ loading, prompt, story_id }) {
       {/* TODO: Make a way to access a list of generated prompts */}
       <Prompt prompt={prompt}></Prompt>
       {/* TODO: Loop through map of submitted stories */}
+      {/* TODO: can put a cool loading animation here */}
       {posts === undefined ? (
         <p>loading...</p>
       ) : (
