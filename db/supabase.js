@@ -1,13 +1,12 @@
 import { supabase } from "../utils/supabaseClient";
 
 //Get the posts based on the ID
-export const getPosts = async ({ story_id }) => {
-  console.log("STORY ID", story_id);
+export const getPosts = async (story_id) => {
   const { data, error } = await supabase
     .from("post")
     .select()
-    .eq("story_id", story_id);
-  console.log("these are the posts", data);
+    .eq("story_id", story_id.story_id);
+  console.log("these are the posts", data, error);
   return data;
 };
 

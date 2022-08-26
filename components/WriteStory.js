@@ -10,27 +10,17 @@ import { useState, useEffect } from "react";
 export default function WriteStory({ loading, prompt, story_id }) {
   const [posts, setPosts] = useState(undefined);
   console.log("STORYIDWRITESTOYR", story_id);
-  // export const getAllPosts = async () => {
-  //   const { data: posts, error } = await supabase
-  //     .from("post")
-  //     .select()
-  //     .order("created_at", { ascending: false });
-  //   if (error) {
-  //     handleError(error);
-  //   }
-  //   console.log("this is the error", error);
-  //   console.log("THESE ARE THE POSTS", posts);
-  //   return posts.map((post) => ({
-  //     ...post,
-  //   }));
-  // };
 
-  // const getPostsByID = async ({story_id}) => {
-  //   setPosts(await getPosts(story_id));
-  // };
+  const getPostsByID = async (storyID) => {
+    console.log("STORY", storyID);
+    setPosts(await getPosts(storyID));
+    console.log("POSTSS", posts);
+  };
 
   useEffect(() => {
-    getPosts({ story_id });
+    if (story_id != "") {
+      getPostsByID({ story_id });
+    }
   }, []);
 
   return (
