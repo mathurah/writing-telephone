@@ -2,7 +2,7 @@ import styles from "../styles/SubmitWriting.module.css";
 import React, { useState, useContext } from "react";
 import { getPosts, insertPost } from "../db/supabase";
 
-export default function SubmitWriting(story_id) {
+export default function SubmitWriting(story_id, loading) {
   const [author, setAuthor] = useState("");
   const [content, setContent] = useState("");
 
@@ -20,6 +20,11 @@ export default function SubmitWriting(story_id) {
     return response;
 
     // console.log(author, content);
+  };
+
+  const handleExit = ({ e, loading }) => {
+    e.preventDefault();
+    setLoading(false);
   };
 
   return (
@@ -42,7 +47,12 @@ export default function SubmitWriting(story_id) {
           ></textarea>
 
           <div className={styles.buttonContainer}>
-            <button className={styles.saveButton}>save</button>
+            <button
+              onClick={(e) => handleExit({ e, loading })}
+              className={styles.saveButton}
+            >
+              Exit
+            </button>
             <button
               type="submit"
               className={styles.submitButton}
