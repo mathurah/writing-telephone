@@ -1,6 +1,8 @@
 import styles from "../styles/Home.module.css";
 import { useState } from "react";
 import { useRouter } from "next/router";
+import Image from "next/image";
+import dalleImage from "../public/magic-library.png";
 
 export default function MainPage({ generatePrompt }) {
   const [story_id, setStory_id] = useState("");
@@ -18,6 +20,10 @@ export default function MainPage({ generatePrompt }) {
         <button onClick={generatePrompt} className={styles.bigButton}>
           start a story
         </button>
+
+        <div className={styles.imagePadding}>
+          <Image src={dalleImage} width={500} height={500}></Image>
+        </div>
 
         <p className={styles.description}>
           or... if you have a game code, enter it here

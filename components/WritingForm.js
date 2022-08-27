@@ -1,11 +1,12 @@
 import styles from "../styles/WritingForm.module.css";
 import React, { useState, useContext } from "react";
 import { getPosts, insertPost } from "../db/supabase";
+import { useRouter } from "next/router";
 
 export default function WritingForm({ story_id, setPosts }) {
   const [author, setAuthor] = useState("");
   const [content, setContent] = useState("");
-
+  const router = useRouter();
   const handleSubmit = async ({ e, author, content }) => {
     e.preventDefault(); //prevents page from being refreshed
     let post = new Object();
@@ -21,6 +22,11 @@ export default function WritingForm({ story_id, setPosts }) {
     return response;
 
     // console.log(author, content);
+  };
+
+  const handleExit = (e) => {
+    router.push("/");
+    console.log("exit");
   };
 
   return (
@@ -43,7 +49,12 @@ export default function WritingForm({ story_id, setPosts }) {
           ></textarea>
 
           <div className={styles.buttonContainer}>
-            <button className={styles.saveButton}>save</button>
+            <button
+              className={styles.saveButton}
+              onClick={(e) => handleExit({ e })}
+            >
+              exit
+            </button>
             <button
               type="submit"
               className={styles.submitButton}
