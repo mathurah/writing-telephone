@@ -49,12 +49,12 @@ export default function WritingForm({ story_id, setPosts }) {
           ></textarea>
 
           <div className={styles.buttonContainer}>
-            <button
+            {/* <button
               className={styles.saveButton}
               onClick={(e) => handleExit({ e })}
             >
               exit
-            </button>
+            </button> */}
             <button
               type="submit"
               className={styles.submitButton}
