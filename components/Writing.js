@@ -5,7 +5,7 @@ export default function Writing({ key, id, content, author, story_id }) {
     <div className={styles.writingsContainer}>
       <div>
         <div>
-          <p>By:{author} </p>
+          <p>By: {author} </p>
         </div>
         <div>
           <p>{content}</p>

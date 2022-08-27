@@ -8,6 +8,27 @@
     text-align: center;
 }
 
+.copyID {
+    display: flex; 
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.copyIDButton {
+    margin-left: 20px; 
+    border: 1px solid #BDBAB6; 
+    background-color: #ECE8E4;
+    border-radius: 30px; 
+    color: black; 
+    font-family: 'Times New Roman', Times, serif;
+    padding: 10px; 
+}
+
+.copyIDButton:active {
+    background-color: #D6BEA6;
+}
+
 .instructionText {
     font-size: 32px; 
     letter-spacing: .04rem;
