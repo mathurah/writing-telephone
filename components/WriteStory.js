@@ -11,6 +11,9 @@ export default function WriteStory({ loading, story_id }) {
   const [posts, setPosts] = useState(undefined);
   const [story, setStory] = useState();
   const [buttonText, setButtonText] = useState("copy to clipboard");
+  const [title, setTitle] = useState(
+    "you brave soldier... you started the story."
+  );
 
   const getPostsByID = async (storyID) => {
     console.log(storyID);
@@ -26,6 +29,11 @@ export default function WriteStory({ loading, story_id }) {
     }
   }, [story_id]);
 
+  useEffect(() => {
+    if (posts != undefined && posts.length > 0) {
+      setTitle("you’ve been tasked to continue the story");
+    }
+  }, [posts]);
   if (!story) return null;
 
   const copytoClipboard = async () => {
@@ -42,7 +50,7 @@ export default function WriteStory({ loading, story_id }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.mainContainer}>
-        <h1 className="title">you brave soldier... you started the story.</h1>
+        <h1 className="title">{title}</h1>
         <div className={styles.copyID}>
           <p className={styles.storyID}>story id: {story_id}</p>
           <button
