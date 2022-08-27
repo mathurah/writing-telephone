@@ -10,12 +10,15 @@ import { useState, useEffect } from "react";
 export default function WriteStory({ loading, story_id }) {
   const [posts, setPosts] = useState(undefined);
   const [story, setStory] = useState();
+  const [buttonText, setButtonText] = useState("copy to clipboard");
 
   const getPostsByID = async (storyID) => {
     console.log(storyID);
     setPosts(await getPosts(storyID));
     setStory(((await getStory(storyID)) || [{}])[0] || {});
   };
+
+  const delay = (ms) => new Promise((res) => setTimeout(res, ms));
 
   useEffect(() => {
     if (story_id != "") {
@@ -25,6 +28,13 @@ export default function WriteStory({ loading, story_id }) {
 
   if (!story) return null;
 
+  const copytoClipboard = async () => {
+    navigator.clipboard.writeText(story_id);
+    setButtonText("copied");
+    await delay(500);
+    setButtonText("copy to clipboard");
+  };
+
   return (
     <div className={styles.container}>
       <Head>
@@ -33,7 +43,17 @@ export default function WriteStory({ loading, story_id }) {
       </Head>
       <main className={styles.mainContainer}>
         <h1 className="title">you brave soldier... you started the story.</h1>
-        <p className={styles.storyID}>story id: {story_id}</p>
+        <div className={styles.copyID}>
+          <p className={styles.storyID}>story id: {story_id}</p>
+          <button
+            className={styles.copyIDButton}
+            onClick={() => {
+              copytoClipboard();
+            }}
+          >
+            {buttonText}
+          </button>
+        </div>
 
         <p className={styles.instructionText}>Prompt: </p>
       </main>
